@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">NewsApp</string>
+    <string name="app_label">Search Tab</string>
+    <string name="search_hint">News search</string>
+    <string name="action_search">Search</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_headlines">Headlines</string>
+    <string name="nav_trending">Trending</string>
+    <string name="nav_bookmarks">Bookmarks</string>
+    <string name="trending_hint">CoronaVirus</string>
+    <string name="no_bookmarks">No Bookmarked Articles</string>
+    <string name="full_article"><u>View Full Article</u></string>
+</resources>

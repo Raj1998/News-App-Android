@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/article_bookmark"
+        android:title="bookmarkIcon"
+        android:icon="@drawable/ic_bookmark_border_black_18dp"
+        app:showAsAction="ifRoom|collapseActionView"
+
+        />
+
+    <item
+        android:id="@+id/article_twitter"
+        android:title="shareIcon"
+        android:icon="@drawable/bluetwitter"
+        app:showAsAction="ifRoom|collapseActionView"
+        />
+
+</menu>

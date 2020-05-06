@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5sp"
+    >
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabSelectedTextColor="@color/colorPrimaryDark"
+        app:tabMode="scrollable"
+        >
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:id="@+id/tab_world"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            android:text="WORLD" />-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:id="@+id/tab_business"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="BUSINESS" />-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:id="@+id/tab_politics"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="POLITICS" />-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:id="@+id/tab_sports"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="SPORTS" />-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:id="@+id/tab_technoloy"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="TECHNOLOGY" />-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:id="@+id/tab_science"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="SCIENCE" />-->
+
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tab_layout"
+        android:id="@+id/view_pager"
+        />
+
+</RelativeLayout>

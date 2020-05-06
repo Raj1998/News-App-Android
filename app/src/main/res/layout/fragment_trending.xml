@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_trending"
+        android:text="Enter Search Term:"
+        android:textSize="23sp"
+        android:textColor="@color/black"
+        android:layout_margin="10sp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_trending"
+        android:textSize="20sp"
+        android:hint="@string/trending_hint"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:imeOptions="actionSend"
+        android:inputType="text"
+        android:layout_margin="10sp"
+        />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="500sp"
+
+        />
+
+
+</LinearLayout>
