@@ -19,6 +19,9 @@ import androidx.appcompat.widget.SearchView;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -43,6 +46,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_LOCATION = 79;
     private int mCurrFragId;
     RequestQueue mQue;
+
+    private static final int TRIGGER_AUTO_COMPLETE = 100;
+    private static final long AUTO_COMPLETE_DELAY = 1300;
+    private Handler handler;
+    private AutoSuggestAdapter autoSuggestAdapter;
+
 
 
     @Override
@@ -87,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
                     new HomeFragment()).commit();
         }
 
+        autoSuggestAdapter = new AutoSuggestAdapter(this,
+                android.R.layout.simple_dropdown_item_1line);
 
     }
 
@@ -160,6 +172,28 @@ public class MainActivity extends AppCompatActivity {
         searchView.onActionViewExpanded();
 
 
+        final androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+
+        searchAutoComplete.setThreshold(3);
+        searchAutoComplete.setAdapter(autoSuggestAdapter);
+        searchAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                searchAutoComplete.setText(parent.getItemAtPosition(position)+"");
+            }
+        });
+
+        handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+                if (msg.what == TRIGGER_AUTO_COMPLETE) {
+                    if (!TextUtils.isEmpty(searchAutoComplete.getText())) {
+                        makeApiCall(searchAutoComplete.getText().toString());
+                    }
+                }
+                return false;
+            }
+        });
 
 //        dataArr.add("app");
 //        dataArr.add("bap");
@@ -194,27 +228,26 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                final androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
-                searchAutoComplete.setThreshold(0);
 
-                final ArrayList<String> dataArr = new ArrayList<>();
-                dataArr.add("app");
-                dataArr.add("bap");
-                searchAutoComplete.setDropDownAnchor(R.id.search_icon);
-                ArrayAdapter<ArrayList> adapter =  new ArrayAdapter(getBaseContext(), android.R.layout.simple_dropdown_item_1line , dataArr);
-                searchAutoComplete.setAdapter(adapter);
-
-
-                searchAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        searchAutoComplete.setText(parent.getItemAtPosition(position)+"");
-                    }
-                });
-
-//                adapter.notifyDataSetChanged();
-
-
+                handler.removeMessages(TRIGGER_AUTO_COMPLETE);
+                handler.sendEmptyMessageDelayed(TRIGGER_AUTO_COMPLETE,
+                        AUTO_COMPLETE_DELAY);
+//                final androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+//                searchAutoComplete.setThreshold(3);
+//                searchAutoComplete.setDropDownAnchor(R.id.search_icon);
+//
+////                final ArrayList<String> dataArr = new ArrayList<>();
+////                dataArr.add("app");
+////                dataArr.add("bap");
+////                ArrayAdapter<ArrayList> adapter =  new ArrayAdapter(getBaseContext(), android.R.layout.simple_dropdown_item_1line , dataArr);
+//
+//
+//
+//
+//
+//
+//
+//
 //                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
 //                        "https://rajpatel.cognitiveservices.azure.com/bing/v7.0/suggestions?q=" + newText,
 //                        null, new Response.Listener<JSONObject>() {
@@ -223,19 +256,26 @@ public class MainActivity extends AppCompatActivity {
 //                        try {
 //                            JSONArray sugg = response.getJSONArray("suggestionGroups").getJSONObject(0).getJSONArray("searchSuggestions");
 //
-//                            final ArrayList<String> dataArr = new ArrayList<>();
-//                            searchAutoComplete.setDropDownAnchor(R.id.search_icon);
+////                            final ArrayList<String> dataArr = new ArrayList<>();
+////                            String dataArr[] = {"Apple" , "Amazon" , "Amd", "Microsoft", "Microwave", "MicroNews", "Intel", "Intelligence"};
+////                            searchAutoComplete.setDropDownAnchor(R.id.search_icon);
 //
+//                            String dataArr[] = new String[sugg.length()];
 //                            for(int i = 0; i < sugg.length(); i++){
 ////                                dataArr.add(sugg.getJSONObject(i).getString("displayText"));
+//                                dataArr[i] = sugg.getJSONObject(i).getString("displayText");
 //                            }
 //
-//                            Log.d(TAG, "After : "+dataArr.toString());
-//                            ArrayAdapter<ArrayList> adapter = new ArrayAdapter(getBaseContext(), android.R.layout.activity_list_item , dataArr);
-//                            dataArr.add("app");
-//                            dataArr.add("bap");
-////                            adapter.notifyDataSetChanged();
+//
+//                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, dataArr);
 //                            searchAutoComplete.setAdapter(adapter);
+//                            adapter.notifyDataSetChanged();
+//
+//                            Log.d(TAG, "After : "+dataArr.toString());
+////                            ArrayAdapter<ArrayList> adapter = new ArrayAdapter(getBaseContext(), android.R.layout.activity_list_item , dataArr);
+////                            dataArr.add("app");
+////                            dataArr.add("bap");
+////                            searchAutoComplete.setAdapter(adapter);
 //
 //
 //                        } catch (JSONException e) {
@@ -244,7 +284,6 @@ public class MainActivity extends AppCompatActivity {
 //                            npe.printStackTrace();
 //                        }
 //
-////                        Log.d(TAG, "Resp aaya"+response.toString());
 //
 //                    }
 //                },
@@ -275,6 +314,42 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
 //        return true;
     }
+
+
+    private void makeApiCall(String text) {
+        Log.d(TAG, "making api call");
+        ApiCall.make(this, text, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //parsing logic, please change it as per your requirement
+                List<String> stringList = new ArrayList<>();
+                try {
+                    JSONObject responseObject = new JSONObject(response);
+                    JSONArray array = responseObject.getJSONArray("suggestionGroups").getJSONObject(0).getJSONArray("searchSuggestions");
+                    int upto5 = array.length() > 5 ? 5 : array.length();
+//                    JSONArray array = responseObject.getJSONArray("results");
+                    for (int i = 0; i < upto5; i++) {
+//                        JSONObject row = array.getJSONObject(i);
+//                        stringList.add(row.getString("trackName"));
+                        stringList.add(array.getJSONObject(i).getString("displayText"));
+                    }
+                    Log.d(TAG, stringList.toString());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                //IMPORTANT: set data here and notify
+                autoSuggestAdapter.setData(stringList);
+                autoSuggestAdapter.notifyDataSetChanged();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+    }
+
 
     @Override
     public void onBackPressed() {

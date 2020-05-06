@@ -10,4 +10,5 @@
     <string name="trending_hint">CoronaVirus</string>
     <string name="no_bookmarks">No Bookmarked Articles</string>
     <string name="full_article"><u>View Full Article</u></string>
+    <string name="no_search">No Results Found</string>
 </resources>

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,6 +37,7 @@ public class SearchActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayout spinner;
     private String query;
+    private TextView no_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class SearchActivity extends AppCompatActivity {
         mQue = Volley.newRequestQueue(this);
         swipeRefreshLayout = findViewById(R.id.search_pull_refresh);
         spinner = findViewById(R.id.search_loading_spinner);
-
+        no_search = findViewById(R.id.search_empty);
 
 
         Intent intent = getIntent();
@@ -81,6 +83,7 @@ public class SearchActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                no_search.setVisibility(View.GONE);
                 newsApiReq(query);
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -186,6 +189,9 @@ public class SearchActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
 
             spinner.setVisibility(View.GONE);
+
+            if (myNewsArrayList.size() == 0) no_search.setVisibility(View.VISIBLE);
+
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
         catch (NullPointerException npe){
