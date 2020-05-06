@@ -163,21 +163,23 @@ public class MainActivity extends AppCompatActivity {
 
 //        dataArr.add("app");
 //        dataArr.add("bap");
-        final androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
-
-        searchAutoComplete.setThreshold(0);
-
-
-//        final ArrayAdapter<ArrayList> adapter = new ArrayAdapter(getBaseContext(), android.R.layout.simple_dropdown_item_1line , dataArr);
-
-
-        searchAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Log.d(TAG, parent.getItemAtPosition(position)+"");
-                searchAutoComplete.setText(parent.getItemAtPosition(position)+"");
-            }
-        });
+//        final androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+//        searchAutoComplete.setThreshold(0);
+//
+//        final ArrayList<String> dataArr = new ArrayList<>();
+//        dataArr.add("app");
+//        dataArr.add("bap");
+//        searchAutoComplete.setDropDownAnchor(R.id.search_icon);
+//        ArrayAdapter<ArrayList> adapter = new ArrayAdapter(getBaseContext(), android.R.layout.simple_dropdown_item_1line , dataArr);
+//        searchAutoComplete.setAdapter(adapter);
+//
+//
+//        searchAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                searchAutoComplete.setText(parent.getItemAtPosition(position)+"");
+//            }
+//        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -192,55 +194,76 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                final androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+                searchAutoComplete.setThreshold(0);
 
+                final ArrayList<String> dataArr = new ArrayList<>();
+                dataArr.add("app");
+                dataArr.add("bap");
+                searchAutoComplete.setDropDownAnchor(R.id.search_icon);
+                ArrayAdapter<ArrayList> adapter =  new ArrayAdapter(getBaseContext(), android.R.layout.simple_dropdown_item_1line , dataArr);
+                searchAutoComplete.setAdapter(adapter);
+
+
+                searchAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        searchAutoComplete.setText(parent.getItemAtPosition(position)+"");
+                    }
+                });
 
 //                adapter.notifyDataSetChanged();
 
 
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-                        "https://rajpatel.cognitiveservices.azure.com/bing/v7.0/suggestions?q=" + newText,
-                        null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray sugg = response.getJSONArray("suggestionGroups").getJSONObject(0).getJSONArray("searchSuggestions");
-
-                            final ArrayList<String> dataArr = new ArrayList<>();
-                            searchAutoComplete.setDropDownAnchor(R.id.search_icon);
-
-                            for(int i = 0; i < sugg.length(); i++){
-                                dataArr.add(sugg.getJSONObject(i).getString("displayText"));
-                            }
-
-                            Log.d(TAG, "After : "+dataArr.toString());
-                            ArrayAdapter<ArrayList> adapter = new ArrayAdapter(getBaseContext(), android.R.layout.simple_dropdown_item_1line , dataArr);
-//                            adapter.notifyDataSetChanged();
-                            searchAutoComplete.setAdapter(adapter);
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-//                        Log.d(TAG, "Resp aaya"+response.toString());
-
-                    }
-                },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-
-                            }
-                        }
-
-                ) {
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> headers = new HashMap<>();
-                        headers.put("Ocp-Apim-Subscription-Key", "ac024cec74564fddaf6810bf13a1702a");
-                        return headers;
-                    }
-                };
-                mQue.add(request);
+//                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+//                        "https://rajpatel.cognitiveservices.azure.com/bing/v7.0/suggestions?q=" + newText,
+//                        null, new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try {
+//                            JSONArray sugg = response.getJSONArray("suggestionGroups").getJSONObject(0).getJSONArray("searchSuggestions");
+//
+//                            final ArrayList<String> dataArr = new ArrayList<>();
+//                            searchAutoComplete.setDropDownAnchor(R.id.search_icon);
+//
+//                            for(int i = 0; i < sugg.length(); i++){
+////                                dataArr.add(sugg.getJSONObject(i).getString("displayText"));
+//                            }
+//
+//                            Log.d(TAG, "After : "+dataArr.toString());
+//                            ArrayAdapter<ArrayList> adapter = new ArrayAdapter(getBaseContext(), android.R.layout.activity_list_item , dataArr);
+//                            dataArr.add("app");
+//                            dataArr.add("bap");
+////                            adapter.notifyDataSetChanged();
+//                            searchAutoComplete.setAdapter(adapter);
+//
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        } catch (NullPointerException npe) {
+//                            npe.printStackTrace();
+//                        }
+//
+////                        Log.d(TAG, "Resp aaya"+response.toString());
+//
+//                    }
+//                },
+//                        new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(VolleyError error) {
+//
+//                            }
+//                        }
+//
+//                ) {
+//                    @Override
+//                    public Map<String, String> getHeaders() throws AuthFailureError {
+//                        Map<String, String> headers = new HashMap<>();
+//                        headers.put("Ocp-Apim-Subscription-Key", "ac024cec74564fddaf6810bf13a1702a");
+//                        return headers;
+//                    }
+//                };
+//                mQue.add(request);
 
                 return false;
             }
