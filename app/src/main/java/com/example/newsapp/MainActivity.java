@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
     private int mCurrFragId;
     RequestQueue mQue;
 
-    private static final int TRIGGER_AUTO_COMPLETE = 100;
-    private static final long AUTO_COMPLETE_DELAY = 1300;
+    private static final int TRIGGER_AUTO_COMPLETE = 1300;
+    private static final long AUTO_COMPLETE_DELAY = 300;
     private Handler handler;
     private AutoSuggestAdapter autoSuggestAdapter;
 

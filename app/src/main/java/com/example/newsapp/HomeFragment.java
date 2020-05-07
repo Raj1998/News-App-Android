@@ -40,6 +40,7 @@ import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -356,6 +357,11 @@ public class HomeFragment extends Fragment {
                     true,
                     false,
                     getContext());
+
+            recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
+                    DividerItemDecoration.VERTICAL
+                    ));
+
             recyclerView.setAdapter(adapter);
 
             spinner.setVisibility(View.GONE);

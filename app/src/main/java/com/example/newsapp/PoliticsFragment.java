@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -105,7 +106,9 @@ public class PoliticsFragment extends Fragment {
                                         false,
                                         getContext()
                                 );
-
+                                recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
+                                        DividerItemDecoration.VERTICAL
+                                ));
                                 recyclerView.setAdapter(adapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                             }
