@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
 
 
-    private static String API_URL_WEATHER = "https://api.openweathermap.org/data/2.5/weather?units=metric&appid=2b51bc354fb58f5ed652d16db1750cf9&q=";
+    private static String API_URL_WEATHER = Data.WEATHER_API_URL;
 
     @Nullable
     @Override

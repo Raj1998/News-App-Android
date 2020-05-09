@@ -8,4 +8,7 @@ public class DataEx {
         public static String AZURE_API_KEY = "YOUR API KEY";
 
 
+//        Key from openweathermap.org
+        public static String WEATHER_API_URL = "YOUR API KEY";
+
 }
