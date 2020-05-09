@@ -34,11 +34,12 @@ import java.util.Arrays;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.fragment.app.Fragment;
 
 public class TrendingFragment extends Fragment {
 
-    EditText editText;
+    AppCompatAutoCompleteTextView editText;
     private static final String TAG = "TrendingFragment";
     private LineChart lineChart;
     RequestQueue mQue;
@@ -109,6 +110,9 @@ public class TrendingFragment extends Fragment {
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                            }
+                            catch (NullPointerException npe) {
+                                npe.printStackTrace();
                             }
 //                            Log.d(TAG, respdata.toString());
                         }

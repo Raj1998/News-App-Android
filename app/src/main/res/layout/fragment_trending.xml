@@ -15,7 +15,7 @@
         android:layout_margin="10sp"
         />
 
-    <EditText
+    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/et_trending"

@@ -208,10 +208,11 @@ public class HomeFragment extends Fragment {
                                 spinner.setVisibility(View.VISIBLE);
                             }
 
-                            Integer t = response.getJSONObject("main").getInt("temp");
+                            Double t = response.getJSONObject("main").getDouble("temp") ;
+                            String inn = String.valueOf(  Math.round(t) );
                             String s = response.getJSONArray("weather").getJSONObject(0).getString("main");
                             Log.d("cs571", t+", "+s);
-                            temp = t.toString() + " °C";
+                            temp = inn + " °C";
                             summary = s;
 
 
@@ -349,6 +350,9 @@ public class HomeFragment extends Fragment {
         Log.d(TAG, "initRecyclerView: init RecyclerView.");
         try {
             recyclerView = getActivity().findViewById(R.id.recycler_view);
+            recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
+                    DividerItemDecoration.VERTICAL
+            ));
 
             MyAdapter adapter = new MyAdapter(
                     myNewsArrayList,
@@ -358,9 +362,7 @@ public class HomeFragment extends Fragment {
                     false,
                     getContext());
 
-            recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
-                    DividerItemDecoration.VERTICAL
-                    ));
+
 
             recyclerView.setAdapter(adapter);
 

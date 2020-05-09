@@ -30,6 +30,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="3sp"
+            android:paddingStart="12sp"
             >
 
 
@@ -62,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:text=" | "
                     android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
                     />
 
                 <TextView

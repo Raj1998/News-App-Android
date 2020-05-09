@@ -60,6 +60,7 @@ public class Article extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article);
+        getSupportActionBar().setElevation(0);
 
         imageView = findViewById(R.id.article_image);
         title = findViewById(R.id.article_title);

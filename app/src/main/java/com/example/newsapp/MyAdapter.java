@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,6 +79,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public class BookmarkViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private CardView cardView;
+        private LinearLayout longPress;
         private ImageView imageView;
         private ImageView bookmarkIcon;
         private TextView section;
@@ -87,6 +89,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(itemView);
             title = itemView.findViewById(R.id.bookmark_tv);
             cardView = itemView.findViewById(R.id.parent_bookmark_card);
+            longPress = itemView.findViewById(R.id.long_press);
             imageView = itemView.findViewById(R.id.bookmark_iv);
             bookmarkIcon = itemView.findViewById(R.id.bookmark_bicon);
             section = itemView.findViewById(R.id.bookmark_section);
@@ -267,6 +270,13 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             });
 
             holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    return false;
+                }
+            });
+
+            holder.longPress.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
                     Log.d(TAG, "Long pressed");
