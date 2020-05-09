@@ -55,7 +55,7 @@ public class ApiCall {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
-                headers.put("Ocp-Apim-Subscription-Key", "ac024cec74564fddaf6810bf13a1702a");
+                headers.put("Ocp-Apim-Subscription-Key", Data.AZURE_API_KEY);
                 return headers;
             }
         }
