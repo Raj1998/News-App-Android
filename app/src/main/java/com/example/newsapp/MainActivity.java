@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    public static final String BACKEND_ENDPOINT = "http://hw8nodeu2ti6d82zh87ejp.us-east-1.elasticbeanstalk.com/api/mobile";
+    public static final String BACKEND_ENDPOINT = Data.BACKEND_BASE_URL;
+//    public static final String BACKEND_ENDPOINT = "http://hw8nodeu2ti6d82zh87ejp.us-east-1.elasticbeanstalk.com/api/mobile";
 //    public static final String BACKEND_ENDPOINT = "http://192.168.1.2:8081/api/mobile";
 
     public static final String EXTRA_QUERY = "query";

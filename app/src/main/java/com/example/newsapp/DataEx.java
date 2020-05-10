@@ -11,4 +11,6 @@ public class DataEx {
 //        Key from openweathermap.org
         public static String WEATHER_API_URL = "YOUR API KEY";
 
+// backend base url
+        public static String BACKEND_BASE_URL = "YOUR BACKEND BASE URL";
 }

@@ -292,7 +292,7 @@ public class HomeFragment extends Fragment {
         Log.d(TAG, "Making request for news...");
 
 
-        JsonObjectRequest req1 = new JsonObjectRequest(Request.Method.GET, MainActivity.BACKEND_ENDPOINT,
+        JsonObjectRequest req1 = new JsonObjectRequest(Request.Method.GET, MainActivity.BACKEND_ENDPOINT+"?section=x",
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
