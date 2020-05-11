@@ -354,11 +354,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Log.d(TAG, "exiting... ");
+//        super.onBackPressed();
+//        Log.d(TAG, "exiting... ");
 //        ActivityManager am =
 //        finish();
-        this.finish();
+
+        finishAffinity();
+        finish();
     }
 
 
