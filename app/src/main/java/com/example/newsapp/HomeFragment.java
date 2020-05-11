@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment {
 //        progressBar.setVisibility(View.VISIBLE);
 
         spinner = getActivity().findViewById(R.id.loading_spinner);
-//        spinner.setVisibility(View.VISIBLE);
+        spinner.setVisibility(View.VISIBLE);
 
         swipeRefreshLayout = getActivity().findViewById(R.id.pull_refresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
